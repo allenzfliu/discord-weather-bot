@@ -24,6 +24,6 @@ async def on_ready():
 async def on_message(message):
     debug(f'{message.author}: {message.content}');
         if (message.author == client.user):
-        return;
+            return;
 
 client.run(TOKEN);
