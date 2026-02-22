@@ -17,7 +17,13 @@ client = discord.Client(intents=intents);
 DEBUG = True;
 
 @client.event
+async def on_ready():
+    debug(f'Bot is ready!');
+
+@client.event
 async def on_message(message):
     debug(f'{message.author}: {message.content}');
-    if (message.author == client.user):
+        if (message.author == client.user):
         return;
+
+client.run(TOKEN);
