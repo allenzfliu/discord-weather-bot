@@ -44,7 +44,13 @@ def main():
             if (message.content.lower() == "w! status"):
                 # send a bot status message
                 await message.channel.send("Weather bot is running. Fetching weather.gov API status...");
-                await message.channel.send(len(weather_api_fetch("https://api.weather.gov/alerts/types")["eventTypes"]));
+                url = "https://api.weather.gov/alerts/types";
+                response = requests.get(url);
+                if (response.status_code == 200):
+                    await message.channel.send("Received 200 OK from API.");
+                else:
+                    await message.channel.send("Did not receive expected error code from API! Something has gone terribly wrong!");
+                    await message.channel.send("The actual code we received was: " + str(response.status_code));
             else:
                 await message.channel.send("Unknown weather bot command.");
 
