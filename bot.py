@@ -41,7 +41,16 @@ def main():
         
         #first check if message starts with header
         if (message.content.lower()[0:3] == MESSAGE_HEADER):
-            if (message.content.lower() == "w! status"):
+            if (message.content.lower() == "w! help"):
+                help_message = "## Burgle Weather Bot Help";
+                help_message += "\n-# Bot prefix is `w! ` (includes space)."
+                help_message += "\n* **w! help**- Prints this help message."
+                help_message += "\n* **w! status**- Prints a bot and weather API status info."
+                help_message += "\n* **w! forecast today <location>**- Prints today's forecast, hour by hour."
+                help_message += "\n* **w! forecast <location>**- Prints a 14 day forecast of high temperatures, low temperatures, and precipitation info."
+                # help_message += "\n* **w! add location <location>**- Adds a location."
+                await message.channel.send(help_message);
+            elif (message.content.lower() == "w! status"):
                 # send a bot status message
                 await message.channel.send("Weather bot is running. Fetching weather.gov API status...");
                 url = "https://api.weather.gov/alerts/types";
@@ -51,6 +60,21 @@ def main():
                 else:
                     await message.channel.send("Did not receive expected error code from API! Something has gone terribly wrong!");
                     await message.channel.send("The actual code we received was: " + str(response.status_code));
+            elif (message.content.lower() == "w! forecast today"):
+                # to keep it shrimple, we'll use the coords given by the user.
+                # using 38, -77 as a test coord
+                location_
+                url = "https://api.weather.gov/points/" + str(lat) + "," + str(long);
+                properties = weather_api_fetch(url)["properties"];
+                debug(properties);
+                gridId = properties["gridId"];
+                gridX = properties["gridX"];
+                gridY = properties["gridY"];
+                forecast_url = properties["forecastHourly"];
+                forecast = weather_api_fetch(forecast_url)["properties"];
+                this_hour = forecast["periods"][0];
+                await message.channel.send("Forecast for " + str(this_hour["startTime"]) + ": Temperature of " 
+                        + str(this_hour["temperature"]) + "*" + str(this_hour["temperatureUnit"]));
             else:
                 await message.channel.send("Unknown weather bot command.");
 
