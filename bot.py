@@ -3,6 +3,8 @@ import os
 import discord
 from dotenv import load_dotenv
 import requests
+import datetime
+
 
 load_dotenv();
 TOKEN = os.getenv('DISCORD_BOT_TOKEN_DO_NOT_SHARE_EVER');
@@ -74,8 +76,9 @@ def main():
                 forecast_url = properties["forecastHourly"];
                 forecast = weather_api_fetch(forecast_url)["properties"];
                 this_hour = forecast["periods"][0];
-                await message.channel.send("Forecast for " + str(this_hour["startTime"]) + ": Temperature of " 
-                        + str(this_hour["temperature"]) + "*" + str(this_hour["temperatureUnit"]));
+                localized_time = datetime.datetime.fromisoformat(this_hour["startTime"]).strftime("%I:%M%p on %B %d, %Y")
+
+                await message.channel.send(f"Forecast for {localized_time}: Temperature of {this_hour['temperature']}*{this_hour['temperatureUnit']}")
             else:
                 await message.channel.send("Unknown weather bot command.");
 
