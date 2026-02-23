@@ -63,7 +63,8 @@ def main():
             elif (message.content.lower() == "w! forecast today"):
                 # to keep it shrimple, we'll use the coords given by the user.
                 # using 38, -77 as a test coord
-                location_
+                lat=38;
+                long=-77;
                 url = "https://api.weather.gov/points/" + str(lat) + "," + str(long);
                 properties = weather_api_fetch(url)["properties"];
                 debug(properties);
