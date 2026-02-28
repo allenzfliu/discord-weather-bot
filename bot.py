@@ -5,12 +5,13 @@ from dotenv import load_dotenv
 import requests
 import datetime
 
-
 load_dotenv();
 TOKEN = os.getenv('DISCORD_BOT_TOKEN_DO_NOT_SHARE_EVER');
 OPEN_CHANNEL = os.getenv('OPEN_CHANNEL');
 MESSAGE_HEADER = "w! ";
 DEBUG = True;
+
+locations = None;
 
 if (DEBUG):
     def debug(message):
@@ -18,6 +19,19 @@ if (DEBUG):
 else:
     def debug(message):
         pass;
+
+def load_locations():
+    global locations;
+    with open("known_locations.json", "r") as f:
+        locations = json.load(f);
+
+def lookup_location(location):
+    global locations;
+    location_name = location.lower().strip();
+    for location in locations["locations"]:
+        if (location_name in location["names"])
+            return location;
+    return None;
 
 def weather_api_fetch(url):
     response = requests.get(url);
@@ -62,11 +76,15 @@ def main():
                 else:
                     await message.channel.send("Did not receive expected error code from API! Something has gone terribly wrong!");
                     await message.channel.send("The actual code we received was: " + str(response.status_code));
-            elif (message.content.lower() == "w! forecast today"):
+            elif (message.content.lower().startswith("w! forecast today")):
                 # to keep it shrimple, we'll use the coords given by the user.
                 # using 38, -77 as a test coord
-                lat=38;
-                long=-77;
+                location = lookup_location(message.content.lower().replace("w! forecast today", ""));
+                if (location == None):
+                    await message.channel.send("Location not found.");
+                    return;
+                lat = location["lat"];
+                long = location["long"];
                 url = "https://api.weather.gov/points/" + str(lat) + "," + str(long);
                 properties = weather_api_fetch(url)["properties"];
                 debug(properties);
@@ -85,4 +103,5 @@ def main():
     client.run(TOKEN);
 
 if (__name__ == "__main__"):
+    locations = load_locations();
     main();
