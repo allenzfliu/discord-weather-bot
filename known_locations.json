@@ -1,0 +1,78 @@
+{
+    "locations": [
+        {
+            "lat": 38.897341,
+            "long": -77.036485,
+            "names": [
+                "white house",
+                "the white house",
+                "dc",
+                "washington, dc",
+                "washington dc"
+            ]
+        },
+        {
+            "lat": 40.712776,
+            "long": -74.005974,
+            "names": [
+                "new york city",
+                "manhattan",
+                "new york",
+                "nyc",
+                "new york, ny",
+                "new york ny"
+            ]
+        },
+        {
+            "lat": 34.052235,
+            "long": -118.243683,
+            "names": [
+                "los angeles",
+                "la",
+                "los angeles, ca",
+                "los angeles ca"
+            ]
+        },
+        {
+            "lat": 41.878113,
+            "long": -87.629798,
+            "names": [
+                "chicago",
+                "chi",
+                "chicago, il",
+                "chicago il"
+            ]
+        },
+        {
+            "lat": 29.760427,
+            "long": -95.369804,
+            "names": [
+                "houston",
+                "houston, tx",
+                "houston tx"
+            ]
+        },
+        {
+            "lat": 37.363436,
+            "long": -121.928804,
+            "names": [
+                "san jose",
+                "san jose, ca",
+                "san jose ca",
+                "sjc",
+                "sjc, ca",
+                "sjc ca"
+            ]
+        },
+        {
+            "lat": 37.7749,
+            "long": -122.4194,
+            "names": [
+                "san francisco",
+                "sf",
+                "san francisco, ca",
+                "san francisco ca"
+            ]
+        }
+    ]
+}
