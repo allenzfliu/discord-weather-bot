@@ -4,6 +4,7 @@ import discord
 from dotenv import load_dotenv
 import requests
 import datetime
+import json
 
 load_dotenv();
 TOKEN = os.getenv('DISCORD_BOT_TOKEN_DO_NOT_SHARE_EVER');
@@ -24,12 +25,16 @@ def load_locations():
     global locations;
     with open("known_locations.json", "r") as f:
         locations = json.load(f);
+        debug(locations["locations"]);
 
 def lookup_location(location):
     global locations;
+    if (locations == None):
+        print("Locations not loaded! Loading now...");
+        load_locations();
     location_name = location.lower().strip();
     for location in locations["locations"]:
-        if (location_name in location["names"])
+        if (location_name in location["names"]):
             return location;
     return None;
 
@@ -79,7 +84,10 @@ def main():
             elif (message.content.lower().startswith("w! forecast today")):
                 # to keep it shrimple, we'll use the coords given by the user.
                 # using 38, -77 as a test coord
-                location = lookup_location(message.content.lower().replace("w! forecast today", ""));
+                location_name = message.content.lower().replace("w! forecast today", "");
+                location = lookup_location(location_name);
+                debug(location_name);
+                debug(location);
                 if (location == None):
                     await message.channel.send("Location not found.");
                     return;
