@@ -61,7 +61,7 @@ def main():
             return;
         
         #first check if message starts with header
-        if (message.content.lower()[0:3] == MESSAGE_HEADER):
+        if (message.content.lower().startswith(MESSAGE_HEADER)):
             if (message.content.lower() == "w! help"):
                 help_message = "## Burgle Weather Bot Help";
                 help_message += "\n-# Bot prefix is `w! ` (includes space)."
